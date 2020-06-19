@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<localRepository>F:\repository</localRepository>
+
+	<pluginGroups>
+		<pluginGroup>com.spotify</pluginGroup>  
+	</pluginGroups>
+	
+	<proxies>
+
+	</proxies>
+	<servers>
+		<server>
+			<id>norland-release</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>
+		<server>
+			<id>norland-snapshot</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>
+	</servers>
+	<mirrors>
+		<mirror>
+			<id>alimaven</id>
+			<name>aliyun maven</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>
+	</mirrors>
+	<profiles>
+		<profile>
+			<id>dev</id>
+
+			<!-- nexus私服配置 -->
+			<repositories>
+				<repository>
+					<!--仓库id，repositories可以配置多个仓库，保证id不重复 -->
+					<id>norland-snapshot</id>
+					<!--仓库地址，即nexus仓库组的地址 -->
+					<url>http://192.168.88.200:8081/nexus/content/repositories/norland-snapshot/</url>
+					<!--是否下载releases构件 -->
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<!--是否下载snapshots构件 -->
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<!-- 插件仓库，maven的运行依赖插件，也需要从私服下载插件 -->
+				<pluginRepository>
+					<!-- 插件仓库的id不允许重复，如果重复后边配置会覆盖前边 -->
+					<id>nexus-aliyun</id>
+					<name>aliyun Repositories</name>
+					<url>http://192.168.88.200:8081/nexus/content/repositories/nexus-aliyun/</url>
+				</pluginRepository>
+			</pluginRepositories>
+
+		</profile>
+
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>dev</activeProfile>
+	</activeProfiles>
+</settings>
